@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.skcc.modern.pattern.redis.cache.config.RedisConfiguration
+
+# EnvironmentPostProcessor
+org.springframework.boot.env.EnvironmentPostProcessor=com.skcc.modern.pattern.redis.cache.config.RedisCachePatternEnvironmentPostProcessor

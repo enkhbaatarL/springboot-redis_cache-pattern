@@ -1,0 +1,17 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+configMapGenerator:
+  - name: springboot-redis-cache-pattern-config
+    files:
+      - application.yaml
+  - name: springboot-redis-cache-pattern-kv-config
+    literals:
+    # default의 경우 file:./ 형식으로 상대경로로 되어 있는데,
+    # jar 파일을 복사하는 경로에 유의하여 deployment를 작성해야 한다.
+    # 만일 컨테이너가 jar 파일을 /app 과 같은 임의의 경로에 복사한 후 가동되는 구조일 경우
+    # spring.config.location의 기본 파일경로 참조값인 ./ 와 ./config/ 를 유지할 경우
+    # 우리가 deployment에서 mount한 /config 경로의 application.yaml 을 읽어올 수 없다.
+    # 절대경로로 형식을 변환하였고, deployment에서도 이를 감안하여 mountPath를 설정하였으며
+    # 이는 프로젝트 상황에 맞게 적용하여야 한다. 
+      - SPRING_CONFIG_LOCATION=classpath:/,classpath:/config/,file:/,file:/config/,file:/config/overlay/

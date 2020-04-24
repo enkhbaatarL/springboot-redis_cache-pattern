@@ -1,0 +1,8 @@
+spring:
+  cache:
+    type: redis
+    redis:
+      defaultExpireTime: 600
+      time-to-live: 60
+      key-prefix: "myCache_"
+      use-key-prefix: true
